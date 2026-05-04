@@ -1,0 +1,17 @@
+---
+title: "Sara Corro Math 230 Website"
+description: |
+  This website shows some of the work done by me in MATH 230: Data Visualization & Computing at Bucknell University. Enjoy!
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r, layout="l-body-outset", echo=FALSE}
+knitr::include_graphics("Infographic.png")
+```
+
+

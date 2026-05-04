@@ -1,0 +1,5 @@
+"0","# Average Race Position by Driver"
+"0","avg_pos <- aggregate(Position ~ Driver, data = Abu.Dhabi.Race, mean)"
+"0","ggplot(avg_pos, aes(x = reorder(Driver, Position), y = Position)) +"
+"0","  geom_bar(stat = ""identity"", fill = f1_palette[2]) + coord_flip() +"
+"0","  theme_minimal() + labs(title = ""Mean Position by Driver"", x=""Driver"") "

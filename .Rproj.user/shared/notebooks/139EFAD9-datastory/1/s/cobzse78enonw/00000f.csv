@@ -1,0 +1,5 @@
+"0","# Lap Times by Team"
+"0","ggplot(Abu.Dhabi.Race, aes(x = Team, y = `LapTime (s)`, fill = Team)) +"
+"0","  geom_boxplot() + coord_flip() +"
+"0","  theme_minimal() + theme(legend.position = ""none"") +"
+"0","  labs(title = ""Team Pace Distribution"")"

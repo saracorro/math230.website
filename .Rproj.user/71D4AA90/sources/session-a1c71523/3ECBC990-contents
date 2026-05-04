@@ -1,0 +1,84 @@
+---
+title: "Past Data Visualizations"
+description: |
+  Here are some data visualizations that I made in Math 230.
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+**Artwork using aRtsy package**
+
+```{r}
+library(aRtsy)
+```
+
+```{r}
+set.seed(4)
+artwork1 <- canvas_nebula(colors = colorPalette("dark2"), k=40, n= 400, resolution = 1000)
+saveCanvas (artwork1, filename = "myArtwork1.png")
+artwork1
+```
+
+Crystals
+
+```{r}
+set.seed (2)
+artwork2 <- canvas_mandelbrot(colors = colorPalette("flag"), iterations = 35, zoom = 2.5, set = c("multibrot"), resolution = 1000)
+saveCanvas (artwork2, filename = "myArtwork2.png")
+artwork2
+```
+
+Good vs. Evil
+
+```{r}
+set.seed(2)
+artwork3 <- canvas_function(colors = c("blue"), background = "orange", by = 0.01, polar = TRUE)
+saveCanvas (artwork3, filename = "myArtwork3.png")
+artwork3
+```
+
+'Ray
+
+
+**ggextension project plot using the ggExtra package**
+
+```{r}
+library(Lock5Data)
+library(ggplot2)
+library(ggExtra)
+Alc.Use <- ggplot(SleepStudy, aes(x=AverageSleep, y=Happiness, colour = AlcoholUse)) +
+  geom_point()
+ggMarginal(Alc.Use, groupColour = TRUE, groupFill = TRUE, alpha =0.3)
+```
+
+Marginal Density Plot. This plot was made with the Sleep Study dataset from the Lock5Data practice. The variables used in this visualizations are Average Sleep, Happiness and Alcohol use. Average Sleep is the x variable, happiness is the y-variable, and Alcohol Use is shown through color of the points, and is broken up by Abstain, Heavy, Light, and Moderate. This visualization shows a scatterplot of the 2 variables, with marginal density plots of each based on alcohol use level.
+
+**Introductory Statistics Dashboard**
+
+
+```{r, echo=FALSE}
+knitr::include_graphics("~/Desktop/math230.website/math230.website/introstatdashboard.png")
+```
+
+Confidence Levels Dashboard. This is a screenshot of a flex dashboard that shows how confidence intervals and sample means shift as the sample size changes. Users can move the slider at the top of the screen to see this in action. As n increases, the intervals shrink, and the sample means tend to get closer to the true population mean. Random normal distributions were generated to use as the data for this.
+
+**Other Past Course Visualizations**
+
+```{r}
+ggplot(penguins, aes(x=bill_len, y=flipper_len)) + geom_point(aes(color=island, shape = species)) + geom_smooth() + labs(x="Bill Length (in mm)", y= "Flipper Length (in mm)", title = "Scatterplot of Flipper Length vs Bill Length by Species and Island")
+```
+Penguin Plot. This is a scatterplot showing the relationship between Bill Length and Flipper Length. This data is from the datasets package in R. The species of penguin and the island they are on are shown through the shape and color of the points. In addition, there is a smooth trend line shown in blue.
+
+
+```{r}
+ggplot(StudentSurvey, aes(x = MathSAT, y = VerbalSAT)) +
+  stat_density_2d(aes(fill = after_stat(level)), geom = "polygon", color = "grey")
+```
+
+Contour Plot. This is a contour plot showing the relationship of Math SAT and Verbal SAT scores. It allows for a 3D representation on a 2D plane. The density of the points is being displayed here. The data used is the Student Survey dataset from the Lock5Data package. It appears almost like a heatmap and a smoothed out version of a hexbin plot. 
+
+
+

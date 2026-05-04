@@ -1,0 +1,7 @@
+"0","Abu.Dhabi.Race$Driver <- reorder(Abu.Dhabi.Race$Driver, Abu.Dhabi.Race$Position, FUN = mean)"
+"0","# Pace Consistency Ridge Plot"
+"0","ggplot(Abu.Dhabi.Race, aes(x = `LapTime (s)`, y = Driver, fill = Driver)) +"
+"0","  geom_density_ridges(alpha = 0.7) +"
+"0","  theme_minimal() + "
+"0","  labs(title = ""Pace Consistency Ridge Plot"") +"
+"0","  theme(legend.position = ""none"") "

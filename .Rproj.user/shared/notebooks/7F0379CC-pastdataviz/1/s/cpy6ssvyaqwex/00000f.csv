@@ -1,0 +1,6 @@
+"0","library(Lock5Data)"
+"0","library(ggplot2)"
+"0","library(ggExtra)"
+"0","Alc.Use <- ggplot(SleepStudy, aes(x=AverageSleep, y=Happiness, colour = AlcoholUse)) +"
+"0","  geom_point()"
+"0","ggMarginal(Alc.Use, groupColour = TRUE, groupFill = TRUE, alpha =0.3)"

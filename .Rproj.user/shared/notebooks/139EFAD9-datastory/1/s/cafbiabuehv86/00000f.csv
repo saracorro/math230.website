@@ -1,0 +1,4 @@
+"0","# Team Position Ranges"
+"0","ggplot(Abu.Dhabi.Race, aes(x = Team, y = Position, fill = Team)) +"
+"0","  geom_boxplot() + coord_flip() +"
+"0","  theme_minimal() + labs(title = ""Team Position Ranges"") + theme(legend.position = ""none"", axis.text.x = element_text(angle = 45, hjust = 1)) + scale_fill_manual(values = f1_palette)"

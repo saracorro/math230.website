@@ -1,0 +1,2 @@
+"0","ggplot(StudentSurvey, aes(x = MathSAT, y = VerbalSAT)) +"
+"0","  stat_density_2d(aes(fill = after_stat(level)), geom = ""polygon"", color = ""grey"")"

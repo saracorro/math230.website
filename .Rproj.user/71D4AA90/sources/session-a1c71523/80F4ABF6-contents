@@ -1,0 +1,220 @@
+---
+title: "Data Story"
+description: |
+  Data from the 2023 F1 Abu Dhabi Grand Prix.
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r, eval=FALSE}
+Abu.Dhabi.Race <- f1_strategy_dataset_abudhabi[complete.cases(f1_strategy_dataset_abudhabi), ]
+```
+
+```{r}
+driver_team_map <- c(
+  "VER" = "Red Bull", "PER" = "Red Bull",
+  "HAM" = "Mercedes", "RUS" = "Mercedes",
+  "LEC" = "Ferrari",  "SAI" = "Ferrari",
+  "NOR" = "McLaren",  "PIA" = "McLaren",
+  "ALO" = "Aston Martin", "STR" = "Aston Martin",
+  "GAS" = "Alpine",   "OCO" = "Alpine",
+  "TSU" = "AlphaTauri", "RIC" = "AlphaTauri",
+  "ALB" = "Williams", "SAR" = "Williams",
+  "BOT" = "Alfa Romeo", "ZHO" = "Alfa Romeo",
+  "HUL" = "Haas",     "MAG" = "Haas"
+)
+
+
+Abu.Dhabi.Race$Team <- driver_team_map[Abu.Dhabi.Race$Driver]
+Abu.Dhabi.Race$Team <- as.factor(Abu.Dhabi.Race$Team)
+```
+
+
+
+```{r, include=FALSE}
+install.packages("ggridges")
+install.packages("ggplot2")
+library(ggplot2)
+library(ggridges)
+  
+
+# Color Palette
+f1_palette <- c(
+  "Red Bull"     = "#3671C6",
+  "Ferrari"      = "#F91536",
+  "Mercedes"     = "#6CD3BF",
+  "Alpine"       = "#2293D1",
+  "McLaren"      = "#F58020",
+  "Alfa Romeo"   = "#C92D4B",
+  "Aston Martin" = "#358C75",
+  "Haas"         = "#B6BABD",
+  "AlphaTauri"   = "#5E8FAA",
+  "Williams"     = "#37BEDD"
+)
+```
+These plots and tables are derived from data about the 2023 Formula 1 Abu Dhabi Grand Prix on November 26. The variables in this data set are: Driver, Lap Number, Tyre Compound, Tyre Stint, Tyre Life, Position, Lap Time, Lap Time Delta, Race, Year, Cumulative Degradation, Pit Stop (if one occurred), Pit Stop Next Lap (if one occurred), Race Progress, Normalized Tyre Life, and Position Change. The data is from Kaggle, and the link is: https://www.kaggle.com/datasets/aadigupta1601/f1-strategy-dataset-pit-stop-prediction.
+This data looks at a variety of races from 2022-2025, but I decided just to focus on one race, the final one of the season at Abu Dhabi. The specific variables I decided to focus on were: Team, Driver, Lap Time, Position, Lap Number, and Pit Stops.
+
+I decided to primarily look at the relationship between position and pace, both across team and drivers. I used a variety of plots and tables to display these relationships, including box plots, ridge plots, bar charts, and more. Below, the nature of the relationships between the variables is explored. The findings appear to suggest that there are associations between certain factors. In addition, a permutation test was done as conditions for inference do not seem to be met.
+
+**Team Pace and Position**
+
+```{r}
+# Lap Times by Team
+ggplot(Abu.Dhabi.Race, aes(x = Team, y = `LapTime (s)`, fill = Team)) +
+  geom_boxplot() + coord_flip() +
+  theme_minimal() + theme(legend.position = "none") +
+  labs(title = "Team Pace Distribution") + scale_fill_manual(values = f1_palette)
+```
+
+This box plot shows the lap times by team. We can compare this to the box plot below, which shows the team position ranges. It appears that there is a relationship between lap time and position based on the fact that we see a similar trend in the positioning of box plots across the 2 plots.
+
+```{r}
+# Team Position Ranges
+ggplot(Abu.Dhabi.Race, aes(x = Team, y = Position, fill = Team)) +
+  geom_boxplot() + coord_flip() +
+  theme_minimal() + labs(title = "Team Position Ranges") + theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) + scale_fill_manual(values = f1_palette)
+```
+This plots is comparing team with their positions for each driver of each lap. As stated above, there appears to be a relationship between team position and lap times. For example, Red Bull, Ferrari, and McLaren appear to have the highest median position, and also have most of the fastest median lap times. We also see that Alfa Romeo, Haas, and Williams appear to have the lowest median positions, and have most of the lowest median lap times.
+
+```{r,include=FALSE}
+team_leaderboard <- aggregate(`LapTime (s)` ~ Team, 
+                              data = Abu.Dhabi.Race, 
+                              FUN = mean, 
+                              na.rm = TRUE)
+
+team_leaderboard <- team_leaderboard[order(team_leaderboard$`LapTime (s)`), ]
+
+print(team_leaderboard)
+```
+
+```{r, echo=FALSE}
+library(knitr)
+
+
+team_leaderboard$`LapTime (s)` <- round(team_leaderboard$`LapTime (s)`, 3)
+
+kable(team_leaderboard, 
+      col.names = c("Constructor (Team)", "Average Race Pace (s)"),
+      align = "lc", 
+      caption = "Abu Dhabi GP Constructor Efficiency",
+      row.names = FALSE) 
+```
+
+Constructor Efficiency Table. This table shows the average lap time for each team, and gives more specific numbers than just looking at the box plot.
+
+**Driver Race Pace and Average Position**
+
+```{r}
+Abu.Dhabi.Race$Driver <- reorder(Abu.Dhabi.Race$Driver, Abu.Dhabi.Race$Position, FUN = mean)
+# Pace Consistency Ridge Plot
+ggplot(Abu.Dhabi.Race, aes(x = `LapTime (s)`, y = Driver, fill = Driver)) +
+  geom_density_ridges(alpha = 0.7) +
+  theme_minimal() + 
+  labs(title = "Pace Consistency Ridge Plot") +
+  theme(legend.position = "none") 
+```
+This ridge plot shows the distribution of lap times for each driver. We can compare this plot to the plot below, showing the mean position of each driver. We see a trend between what appears to be the center of these lap times and mean position.
+
+```{r}
+# Average Race Position by Driver
+avg_pos <- aggregate(Position ~ Driver, data = Abu.Dhabi.Race, mean)
+ggplot(avg_pos, aes(x = reorder(Driver, Position), y = Position)) +
+  geom_bar(stat = "identity", fill = f1_palette[2]) + coord_flip() +
+  theme_minimal() + labs(title = "Mean Position by Driver", x="Driver") 
+```
+
+This bar chart shows the mean position of each driver. When comparing it to the plot above, we see a similar shape to the center of the distributions and the way that the bars are aligned to each driver.
+
+**Position Bump Chart and Pit Stops**
+```{r}
+# Race Position Bump Chart
+ggplot(Abu.Dhabi.Race, aes(x = LapNumber, y = Position, color = Driver)) +
+  geom_line(size = 1) +
+  scale_y_reverse(breaks = 1:20) +
+  theme_minimal() + 
+  theme(
+    legend.position = "bottom", 
+    legend.text = element_text(size = 8), 
+    legend.title = element_blank()     
+  ) +
+  guides(color = guide_legend(nrow = 2)) +
+  labs(title = "Race Position Bump Chart")
+```
+
+This plot shows the position that each driver was in throughout the race, and how it changed. While this plot is very informational, there are some steep decreases that need some context to them. That is why I have included the pit stops below, to help illustrate the reason behind some of the position changes.
+
+```{r}
+# Pit Stop Windows
+ggplot(subset(Abu.Dhabi.Race, PitStop == TRUE), aes(x = LapNumber, y = Driver)) +
+  geom_point(color = f1_palette[2], size = 3) +
+  theme_minimal() + labs(title = "Pit Stop Strategy Windows")
+```
+
+This is a plot showing what lap the pit stops occurred for each driver. We can see that that sometimes steep drops in the bump chart above coincide with pit stops. We see a large cluster of pit stops between around laps 12-25 and laps 30-45. We see many position drops in these areas of the plot above.
+
+
+
+
+**Permutation Test**
+
+```{r, layout="l-body-outset", echo=FALSE}
+knitr::include_graphics("PermutationSlide.png")
+```
+
+```{r,eval=FALSE}
+Abu.Dhabi.Race$Race_Half <- ifelse(Abu.Dhabi.Race$LapNumber <= 29, "First", "Second")
+mean_first <- mean(Abu.Dhabi.Race$`LapTime (s)`[Abu.Dhabi.Race$Race_Half == "First"], na.rm = TRUE)
+mean_second <- mean(Abu.Dhabi.Race$`LapTime (s)`[Abu.Dhabi.Race$Race_Half == "Second"], na.rm = TRUE)
+difference.in.means.og.sample <- mean_first - mean_second
+```
+
+```{r, eval=FALSE}
+set.seed(230)
+permutation.diff.in.means = NULL
+
+n <- nrow(Abu.Dhabi.Race)
+n1 <- sum(Abu.Dhabi.Race$Race_Half == "First")
+
+for(b in 1:10000) {
+  shuffled_times <- sample(Abu.Dhabi.Race$`LapTime (s)`, replace = FALSE)
+  mean_1 <- mean(shuffled_times[1:n1], na.rm = TRUE)
+  mean_2 <- mean(shuffled_times[(n1 + 1):n], na.rm = TRUE)
+  permutation.diff.in.means[b] = mean_1 - mean_2
+}
+```
+
+```{r, eval=FALSE}
+((sum(permutation.diff.in.means >= difference.in.means.og.sample) + 1)
+/ (length(permutation.diff.in.means) +1))
+```
+
+```{r,eval=FALSE}
+ggplot() + geom_histogram(aes(x = permutation.diff.in.means, 
+                              y= after_stat(density)), bins =  20, 
+                          fill = "orange", alpha=0.7) +
+  labs(x = "Permutation Values", 
+       title = "Permutation Distribution for Difference in Means") +
+  geom_density(aes(x=permutation.diff.in.means, color = "blue")) +
+  geom_vline(xintercept = 0, col = "blue") + 
+geom_vline(xintercept = difference.in.means.og.sample, col = "blue")
+```
+```{r, eval=FALSE}
+mean(Abu.Dhabi.Race$`LapTime (s)`)
+target_drivers <- c("VER", "LEC", "RUS", "PER", "NOR")
+top_5_data <- subset(Abu.Dhabi.Race, Driver %in% target_drivers)
+avg_times <- aggregate(`LapTime (s)` ~ Driver, data = top_5_data, FUN = mean, na.rm = TRUE)
+print(avg_times)
+
+team_avg_pace <- aggregate(`LapTime (s)` ~ Team, 
+                           data = Abu.Dhabi.Race, 
+                           FUN = mean, 
+                           na.rm = TRUE)
+team_avg_pace <- team_avg_pace[order(team_avg_pace$`LapTime (s)`), ]
+print(team_avg_pace)
+```
+
