@@ -193,6 +193,7 @@ for(b in 1:10000) {
 ```
 
 ```{r,eval=FALSE}
+library(ggplot2)
 ggplot() + geom_histogram(aes(x = permutation.diff.in.means, 
                               y= after_stat(density)), bins =  20, 
                           fill = "orange", alpha=0.7) +
@@ -202,6 +203,7 @@ ggplot() + geom_histogram(aes(x = permutation.diff.in.means,
   geom_vline(xintercept = 0, col = "blue") + 
 geom_vline(xintercept = difference.in.means.og.sample, col = "blue")
 ```
+
 ```{r, eval=FALSE}
 mean(Abu.Dhabi.Race$`LapTime (s)`)
 target_drivers <- c("VER", "LEC", "RUS", "PER", "NOR")

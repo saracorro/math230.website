@@ -6,14 +6,14 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2026-05-04T01:16:13-04:00"
+      "last_modified": "2026-05-04T14:48:07-04:00"
     },
     {
       "path": "datastory.html",
       "title": "Pace vs. Place: Data Story",
       "author": [],
       "contents": "\n\n\n\n\n\n\nThese plots and tables are derived from data about the 2023 Formula 1 Abu Dhabi Grand Prix on November 26. The variables in this data set are: Driver, Lap Number, Tyre Compound, Tyre Stint, Tyre Life, Position, Lap Time, Lap Time Delta, Race, Year, Cumulative Degradation, Pit Stop (if one occurred), Pit Stop Next Lap (if one occurred), Race Progress, Normalized Tyre Life, and Position Change. The data is from Kaggle, and the link is: https://www.kaggle.com/datasets/aadigupta1601/f1-strategy-dataset-pit-stop-prediction.\nThis data looks at a variety of races from 2022-2025, but I decided just to focus on one race, the final one of the season at Abu Dhabi. The specific variables I decided to focus on were: Team, Driver, Lap Time, Position, Lap Number, and Pit Stops.\nI decided to primarily look at the relationship between position and pace, both across team and drivers. I used a variety of plots and tables to display these relationships, including box plots, ridge plots, bar charts, and more. Below, the nature of the relationships between the variables is explored. The findings appear to suggest that there are associations between certain factors. In addition, a permutation test was done as conditions for inference do not seem to be met.\nTeam Pace and Position\n\n\n\nThis box plot shows the lap times by team. We can compare this to the box plot below, which shows the team position ranges. It appears that there is a relationship between lap time and position based on the fact that we see a similar trend in the positioning of box plots across the 2 plots.\n\n\n\nThis plots is comparing team with their positions for each driver of each lap. As stated above, there appears to be a relationship between team position and lap times. For example, Red Bull, Ferrari, and McLaren appear to have the highest median position, and also have most of the fastest median lap times. We also see that Alfa Romeo, Haas, and Williams appear to have the lowest median positions, and have most of the lowest median lap times.\n\nTable 1: Abu Dhabi GP Constructor Efficiency\nConstructor (Team)\nAverage Race Pace (s)\nRed Bull\n90.200\nMercedes\n90.430\nFerrari\n90.559\nMcLaren\n90.657\nAston Martin\n90.908\nAlphaTauri\n91.137\nAlpine\n91.304\nWilliams\n91.398\nAlfa Romeo\n91.714\nHaas\n91.721\n\nConstructor Efficiency Table. This table shows the average lap time for each team, and gives more specific numbers than just looking at the box plot.\nDriver Race Pace and Average Position\n\n\n\nThis ridge plot shows the distribution of lap times for each driver. We can compare this plot to the plot below, showing the mean position of each driver. We see a trend between what appears to be the center of these lap times and mean position.\n\n\n\nThis bar chart shows the mean position of each driver. When comparing it to the plot above, we see a similar shape to the center of the distributions and the way that the bars are aligned to each driver.\nPosition Bump Chart and Pit Stops\n\n\n\nThis plot shows the position that each driver was in throughout the race, and how it changed. While this plot is very informational, there are some steep decreases that need some context to them. That is why I have included the pit stops below, to help illustrate the reason behind some of the position changes.\n\n\n\nThis is a plot showing what lap the pit stops occurred for each driver. We can see that that sometimes steep drops in the bump chart above coincide with pit stops. We see a large cluster of pit stops between around laps 12-25 and laps 30-45. We see many position drops in these areas of the plot above.\nPermutation Test\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
-      "last_modified": "2026-05-04T01:16:16-04:00"
+      "last_modified": "2026-05-04T14:48:10-04:00"
     },
     {
       "path": "index.html",
@@ -21,7 +21,7 @@
       "description": "This website shows some of the work done by me in MATH 230: Data Visualization & Computing at Bucknell University. Enjoy!\n",
       "author": [],
       "contents": "\n\n\n\n\n\n\n",
-      "last_modified": "2026-05-04T01:16:16-04:00"
+      "last_modified": "2026-05-04T14:48:11-04:00"
     },
     {
       "path": "pastdataviz.html",
@@ -29,7 +29,7 @@
       "description": "Here are some data visualizations that I made in Math 230.\n",
       "author": [],
       "contents": "\nArtwork using aRtsy package\n\n\n\n\n\n\nCrystals\n\n\n\nGood vs. Evil\n\n\n\n’Ray\nggextension project plot using the ggExtra package\n\n\n\nMarginal Density Plot. This plot was made with the Sleep Study dataset from the Lock5Data practice. The variables used in this visualizations are Average Sleep, Happiness and Alcohol use. Average Sleep is the x variable, happiness is the y-variable, and Alcohol Use is shown through color of the points, and is broken up by Abstain, Heavy, Light, and Moderate. This visualization shows a scatterplot of the 2 variables, with marginal density plots of each based on alcohol use level.\nIntroductory Statistics Dashboard\n\n\n\nConfidence Levels Dashboard. This is a screenshot of a flex dashboard that shows how confidence intervals and sample means shift as the sample size changes. Users can move the slider at the top of the screen to see this in action. As n increases, the intervals shrink, and the sample means tend to get closer to the true population mean. Random normal distributions were generated to use as the data for this.\nOther Past Course Visualizations\n\n\n\nPenguin Plot. This is a scatterplot showing the relationship between Bill Length and Flipper Length. This data is from the datasets package in R. The species of penguin and the island they are on are shown through the shape and color of the points. In addition, there is a smooth trend line shown in blue.\n\n\n\nContour Plot. This is a contour plot showing the relationship of Math SAT and Verbal SAT scores. It allows for a 3D representation on a 2D plane. The density of the points is being displayed here. The data used is the Student Survey dataset from the Lock5Data package. It appears almost like a heatmap and a smoothed out version of a hexbin plot.\n\n\n\n",
-      "last_modified": "2026-05-04T01:16:30-04:00"
+      "last_modified": "2026-05-04T14:48:24-04:00"
     }
   ],
   "collections": []
