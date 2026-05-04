@@ -1,7 +1,6 @@
 ---
-title: "Data Story"
+title: "Pace vs. Place: Data Story"
 description: |
-  Data from the 2023 F1 Abu Dhabi Grand Prix.
 output: distill::distill_article
 ---
 

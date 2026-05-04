@@ -1,0 +1,14 @@
+name: "math230.website"
+title: "Sara Corro Math 230 Website"
+description: |
+  My Website
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Past Data Visualizations"
+      href: pastdataviz.html
+    - text: "Pace vs. Place"
+      href: datastory.html
+output: distill::distill_article
