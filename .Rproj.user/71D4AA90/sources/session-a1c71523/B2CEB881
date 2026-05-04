@@ -3,9 +3,9 @@
     "path": "~/Desktop/math230.website/math230.website/_site.yml",
     "project_path": "_site.yml",
     "type": "yaml",
-    "hash": "0",
+    "hash": "2694598573",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1777871631316.0,
     "source_on_save": false,
     "relative_order": 4,
@@ -16,11 +16,11 @@
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1777660899,
+    "lastKnownWriteTime": 1777871771,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1777871646865,
+    "last_content_update": 1777871771699,
     "read_only": false,
     "read_only_alternatives": []
 }

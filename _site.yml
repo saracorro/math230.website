@@ -9,6 +9,6 @@ navbar:
       href: index.html
     - text: "Past Data Visualizations"
       href: pastdataviz.html
-    - text: "Data Story"
+    - text: "Pace vs. Place"
       href: datastory.html
 output: distill::distill_article
